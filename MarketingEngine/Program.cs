@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using static TicketsConsole.MarketingEngine;
 using static TicketsConsole.Program;
 /*
 Let&#39;s say we&#39;re running a small entertainment business as a start-up. This means we&#39;re selling tickets to live events
@@ -13,10 +14,9 @@ namespace TicketsConsole
 {
     internal partial class Program
     {
-        public record City(string Name, int X, int Y);
        
 
-static void Main(string[] args)
+    static void Main(string[] args)
         {
             /*
             1. You can see here a list of events, a customer object. Try to understand the code, make it compile.
@@ -99,13 +99,15 @@ static void Main(string[] args)
 
             var marketingEngine = new MarketingEngine(events, Cities);
 
+            Console.WriteLine("*** Printing Events based on top 5 event closest to customer with optimization ***");
             marketingEngine.NotifyCustomersBasedOnTopFiveClosestEventDistanceWithOptimization(customer);
+            Console.WriteLine("*** Printing Events based on top 5 event closest to customer without optimization ***");
             marketingEngine.NotifyCustomersBasedOnTopFiveClosestEventDistanceWithoutOptimization(customer);
+            Console.WriteLine("*** Printing Events happening on customer's birthday ***");
             marketingEngine.SendCustomerBirthDayNotification(customer);
+            Console.WriteLine("*** Printing Events closest to customer's location. ***");
             marketingEngine.SendCustomerNotifications(customer, events.FirstOrDefault());
-
-
-        }
+    }
 }
 
 
@@ -132,19 +134,5 @@ static void Main(string[] args)
         public string City { get; set; }
         public DateTime BirthDate { get; set; }
     }
-
-    /*-------------------------------------
-    Coordinates are roughly to scale with miles in the USA
-    2000 +----------------------+
-    | |
-    | |
-    Y | |
-    | |
-    | |
-    | |
-    | |
-    0 +----------------------+
-    0 X 4000
-    ---------------------------------------*/
 
 }
